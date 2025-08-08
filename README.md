@@ -1,23 +1,24 @@
 <img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
 
 
-# Oru Kadi Tharatto!
+
+# Oru Kadi Tharatto
+
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: Autistic
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: Bhavana B - College of Engineering Perumon Kollam
+- Member : Aravind P - College of Engineering Perumon Kollam
 
 ### Project Description
-[2-3 lines about what your project does]
+we are planning to make a web app that could measure the size of vazhaikappam parippuvada and maybe uzhunnuvada too.Applying area of parippuvada and vazhaikkappam.We are ignoring the 'thickness' because we are snack minimalists.Somehow we will be adding samosa too..if we could integrate pythagoras theorem
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+
 
 ### The Solution (that nobody asked for)
 [How are you solving it? Keep it fun!]
