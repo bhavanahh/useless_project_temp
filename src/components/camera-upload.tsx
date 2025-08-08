@@ -42,8 +42,8 @@ export default function CameraUpload({ onAnalysisComplete }: CameraUploadProps) 
         setHasCameraPermission(false);
         toast({
           variant: 'destructive',
-          title: 'Camera Access Denied',
-          description: 'Please enable camera permissions in your browser settings to use this feature.',
+          title: 'Camera Kondu Varane!',
+          description: 'Mone, camera on aakiye... Appo alle photo edukkaan pattu.',
         });
       }
     };
@@ -91,7 +91,7 @@ export default function CameraUpload({ onAnalysisComplete }: CameraUploadProps) 
         onAnalysisComplete(result);
         setImagePreview(null);
         toast({
-          title: `Ithu ${result.snackType} aanu!`,
+          title: `Kandupiche! Ithu ${result.snackType} aanu!`,
           description: "Alavukal update cheythittundu.",
         });
       }
@@ -122,8 +122,8 @@ export default function CameraUpload({ onAnalysisComplete }: CameraUploadProps) 
     if (analysisError) {
         navigator.clipboard.writeText(analysisError).then(() => {
             toast({
-                title: "Copied!",
-                description: "Error message copied to clipboard.",
+                title: "Copy cheythu!",
+                description: "Thettu copy cheythittundu, mone.",
             });
         });
     }
@@ -136,7 +136,7 @@ export default function CameraUpload({ onAnalysisComplete }: CameraUploadProps) 
                  <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-20">
                     <div className="text-center p-4 bg-background/80 rounded-lg shadow-lg">
                         <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto" />
-                        <p className="mt-2 text-muted-foreground">Analyzing snack...</p>
+                        <p className="mt-2 text-muted-foreground">Kadi alakkunnu...</p>
                     </div>
                 </div>
             )}
@@ -163,9 +163,9 @@ export default function CameraUpload({ onAnalysisComplete }: CameraUploadProps) 
 
         {hasCameraPermission === false && (
             <Alert variant="default">
-                <AlertTitle>Camera Not Available</AlertTitle>
+                <AlertTitle>Camera Illa!</AlertTitle>
                 <AlertDescription>
-                    You can still upload a file to analyze a snack.
+                    Camera illel entha, file upload cheythu snack alakkamallo.
                 </AlertDescription>
             </Alert>
         )}
@@ -174,7 +174,7 @@ export default function CameraUpload({ onAnalysisComplete }: CameraUploadProps) 
              <Alert variant="destructive">
                 <div className="flex justify-between items-start">
                     <div>
-                        <AlertTitle>Analysis Failed</AlertTitle>
+                        <AlertTitle>Ayyo, Pani Kitti!</AlertTitle>
                         <AlertDescription>
                             {analysisError}
                         </AlertDescription>
@@ -188,10 +188,10 @@ export default function CameraUpload({ onAnalysisComplete }: CameraUploadProps) 
 
         <div className="grid grid-cols-2 gap-4">
             <Button onClick={captureImage} className="w-full" disabled={hasCameraPermission !== true || isProcessing}>
-                <Camera className="mr-2" /> Capture
+                <Camera className="mr-2" /> Oru Photo Pidi
             </Button>
             <Button onClick={handleUploadClick} variant="outline" disabled={isProcessing}>
-                <FileUp className="mr-2" /> Upload File
+                <FileUp className="mr-2" /> File Thappu
             </Button>
             <input type="file" ref={fileInputRef} id="file-upload" accept="image/*" className="hidden" onChange={handleFileUpload} />
         </div>

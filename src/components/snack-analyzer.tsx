@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ParippuvadaIcon, VazhaikkapamIcon } from '@/components/snack-icons';
+import { ParippuvadaIcon, SamoosaIcon, VazhaikkapamIcon } from '@/components/snack-icons';
 import { type SnackAnalysisResult, type Snack } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import CameraUpload from './camera-upload';
@@ -15,7 +15,7 @@ import CurrentWinners from './current-winners';
 export default function SnackAnalyzer() {
   const [snackResult, setSnackResult] = useState<SnackAnalysisResult | null>(null);
   const [showWinner, setShowWinner] = useState(false);
-  const [winners, setWinners] = useState<{parippuvada: Snack | null, vazhaikkapam: Snack | null}>({parippuvada: null, vazhaikkapam: null});
+  const [winners, setWinners] = useState<{parippuvada: Snack | null, vazhaikkapam: Snack | null, samoosa: Snack | null}>({parippuvada: null, vazhaikkapam: null, samoosa: null});
 
   const { toast } = useToast();
   
@@ -24,7 +24,7 @@ export default function SnackAnalyzer() {
       toast({
         variant: "destructive",
         title: "Ayyo! Oru pani kitti.",
-        description: result.error || 'Could not analyze snack.',
+        description: result.error || 'Kadi alakan pattiyilla.',
       });
       setSnackResult(null);
     } else {
@@ -37,9 +37,27 @@ export default function SnackAnalyzer() {
     setWinners({
         parippuvada: result.parippuvadaWinner,
         vazhaikkapam: result.vazhaikkapamWinner,
+        samoosa: result.samoosaWinner,
     });
   };
   
+  const renderSnackIcon = (type: Snack['type'], className: string) => {
+    switch (type) {
+        case 'parippuvada': return <ParippuvadaIcon className={className} />;
+        case 'vazhaikkapam': return <VazhaikkapamIcon className={className} />;
+        case 'samoosa': return <SamoosaIcon className={className} />;
+    }
+  }
+
+  const getSnackColor = (type: Snack['type']) => {
+    switch (type) {
+      case 'parippuvada': return 'text-primary';
+      case 'vazhaikkapam': return 'text-accent';
+      case 'samoosa': return 'text-green-600';
+      default: return 'text-foreground';
+    }
+  }
+
   return (
     <>
     {snackResult?.latestSnack && (
@@ -53,8 +71,8 @@ export default function SnackAnalyzer() {
         <div className="lg:col-span-1 space-y-8">
             <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <CardHeader>
-                    <CardTitle className="font-headline">Snack Analyzer</CardTitle>
-                    <CardDescription>Upload or snap a picture of your snack to see how it measures up!</CardDescription>
+                    <CardTitle className="font-headline">Kadi Meter</CardTitle>
+                    <CardDescription>Oru photo eduthalo, allenkil upload cheytho, nammude kadi ethratholam undennu nokkam!</CardDescription>
                 </CardHeader>
                 <CardContent>
                    <CameraUpload onAnalysisComplete={handleAnalysisComplete} />
@@ -63,11 +81,11 @@ export default function SnackAnalyzer() {
         </div>
 
         <div className="lg:col-span-2 space-y-8">
-            {snackResult && !snackResult.error && snackResult.area ? (
+            {snackResult && !snackResult.error && snackResult.area && snackResult.snackType !== 'unknown' ? (
               <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 animate-in fade-in-0 zoom-in-95 duration-500">
                   <CardHeader>
-                      <CardTitle className="font-headline">Analysis Results</CardTitle>
-                      <CardDescription>Here's the lowdown on your snack.</CardDescription>
+                      <CardTitle className="font-headline">Kandupidutham</CardTitle>
+                      <CardDescription>Da, pidicho ninakkulla kadiyude report.</CardDescription>
                   </CardHeader>
                   <CardContent>
                       <div className="grid md:grid-cols-2 gap-6 items-center">
@@ -82,40 +100,45 @@ export default function SnackAnalyzer() {
                               />
                           )}
                           <div className="bg-muted rounded-lg p-6 text-center space-y-3">
-                              {snackResult.snackType === 'parippuvada' ? 
-                                  <ParippuvadaIcon className="h-16 w-16 mx-auto text-primary" /> :
-                                  <VazhaikkapamIcon className="h-16 w-16 mx-auto text-accent" />
-                              }
-                              <p className="text-lg">Ithu oru <span className="font-bold capitalize text-primary">{snackResult.snackType}</span> aanu!</p>
+                              {renderSnackIcon(snackResult.snackType, `h-16 w-16 mx-auto ${getSnackColor(snackResult.snackType)}`)}
+                              <p className="text-lg">Ithu oru <span className={`font-bold capitalize ${getSnackColor(snackResult.snackType)}`}>{snackResult.snackType}</span> aanu!</p>
                               
                               <div>
-                                  <p className="text-sm text-muted-foreground">Surface Area</p>
-                                  <p className="text-4xl font-bold font-mono text-primary">{snackResult.area?.toFixed(1)} cm²</p>
+                                  <p className="text-sm text-muted-foreground">Valippam (Area)</p>
+                                  <p className={`text-4xl font-bold font-mono ${getSnackColor(snackResult.snackType)}`}>{snackResult.area?.toFixed(1)} cm²</p>
                               </div>
                               
-                              <div className="text-sm text-muted-foreground border-t border-border pt-3">
+                              <div className="text-sm text-muted-foreground border-t border-border pt-3 space-y-1">
                                   {snackResult.snackType === 'parippuvada' && snackResult.diameter && snackResult.diameter > 0 && (
                                       <div>
-                                          <p>Perimeter: <span className="font-mono font-medium text-foreground">{(Math.PI * snackResult.diameter).toFixed(1)} cm</span></p>
+                                          <p>Chuttalav: <span className="font-mono font-medium text-foreground">{(Math.PI * snackResult.diameter).toFixed(1)} cm</span></p>
                                       </div>
                                   )}
                                   {snackResult.snackType === 'vazhaikkapam' && snackResult.length && snackResult.length > 0 && snackResult.width && snackResult.width > 0 && (
                                       <div className="flex justify-center gap-4">
-                                          <p>Length: <span className="font-mono font-medium text-foreground">{snackResult.length.toFixed(1)} cm</span></p>
-                                          <p>Width: <span className="font-mono font-medium text-foreground">{snackResult.width.toFixed(1)} cm</span></p>
+                                          <p>Neelam: <span className="font-mono font-medium text-foreground">{snackResult.length.toFixed(1)} cm</span></p>
+                                          <p>Veethi: <span className="font-mono font-medium text-foreground">{snackResult.width.toFixed(1)} cm</span></p>
+                                          {snackResult.inclination != null && <p>Chariv: <span className="font-mono font-medium text-foreground">{snackResult.inclination.toFixed(0)}°</span></p>}
+                                      </div>
+                                  )}
+                                  {snackResult.snackType === 'samoosa' && snackResult.sideA && snackResult.sideB && snackResult.sideC && (
+                                      <div className="flex justify-center gap-4">
+                                          <p>Side A: <span className="font-mono font-medium text-foreground">{snackResult.sideA.toFixed(1)} cm</span></p>
+                                          <p>Side B: <span className="font-mono font-medium text-foreground">{snackResult.sideB.toFixed(1)} cm</span></p>
+                                          <p>Side C: <span className="font-mono font-medium text-foreground">{snackResult.sideC.toFixed(1)} cm</span></p>
                                       </div>
                                   )}
                               </div>
                           </div>
                       </div>
                       {snackResult.commentary && (
-                          <div className="mt-6 p-4 bg-amber-50 border-l-4 border-amber-400 rounded-r-lg">
+                          <div className="mt-6 p-4 bg-amber-50 border-l-4 border-primary rounded-r-lg">
                               <div className="flex">
                                   <div className="flex-shrink-0">
-                                      <MessageSquareQuote className="h-5 w-5 text-amber-500" aria-hidden="true" />
+                                      <MessageSquareQuote className="h-5 w-5 text-primary" aria-hidden="true" />
                                   </div>
                                   <div className="ml-3">
-                                      <p className="text-sm text-amber-800">
+                                      <p className="text-sm text-yellow-800">
                                           {snackResult.commentary}
                                       </p>
                                   </div>
@@ -125,21 +148,21 @@ export default function SnackAnalyzer() {
                   </CardContent>
               </Card>
             ) : (
-                <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 animate-in fade-in-0 zoom-in-95">
                     <CardHeader>
-                        <CardTitle className="font-headline">Awaiting Analysis</CardTitle>
+                        <CardTitle className="font-headline">Alക്കാൻ Kaathirikkunnu</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="bg-muted rounded-lg p-6 text-center space-y-3 flex flex-col items-center justify-center min-h-[250px]">
                             <UtensilsCrossed className="h-16 w-16 mx-auto text-muted-foreground/50" />
-                            <p className="text-muted-foreground">Waiting for a snack...</p>
-                            <p className="text-sm text-muted-foreground/80">Your snack analysis will appear here.</p>
+                            <p className="text-muted-foreground">Oru kadi vechu thaa...</p>
+                            <p className="text-sm text-muted-foreground/80">Ninte kadiyude alav ivide varum.</p>
                         </div>
                     </CardContent>
                 </Card>
             )}
 
-            <CurrentWinners parippuvada={winners.parippuvada} vazhaikkapam={winners.vazhaikkapam} />
+            <CurrentWinners parippuvada={winners.parippuvada} vazhaikkapam={winners.vazhaikkapam} samoosa={winners.samoosa} />
         </div>
     </div>
     </>

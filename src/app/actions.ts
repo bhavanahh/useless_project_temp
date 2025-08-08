@@ -15,7 +15,7 @@ const sessionSnacks: Snack[] = [];
 
 export interface Snack {
   id: string;
-  type: 'parippuvada' | 'vazhaikkapam';
+  type: 'parippuvada' | 'vazhaikkapam' | 'samoosa';
   area: number;
   imageData: string;
 }
@@ -28,9 +28,10 @@ export type SnackAnalysisResult = (SnackDimensionsOutput & {
     error: string | null;
     parippuvadaWinner: Snack | null;
     vazhaikkapamWinner: Snack | null;
+    samoosaWinner: Snack | null;
 });
 
-function getLargestSnack(type: 'parippuvada' | 'vazhaikkapam'): Snack | null {
+function getLargestSnack(type: 'parippuvada' | 'vazhaikkapam' | 'samoosa'): Snack | null {
     const snacksOfType = sessionSnacks.filter(s => s.type === type);
     if (snacksOfType.length === 0) {
         return null;
@@ -44,13 +45,18 @@ export async function analyzeAndCompareSnack(data: SnackDimensionsInput): Promis
   const getWinners = () => ({
       parippuvadaWinner: getLargestSnack('parippuvada'),
       vazhaikkapamWinner: getLargestSnack('vazhaikkapam'),
+      samoosaWinner: getLargestSnack('samoosa'),
   });
 
-  const errorResult = {
+  const errorResult: SnackAnalysisResult = {
       snackType: 'unknown' as const,
       diameter: null,
       length: null,
       width: null,
+      inclination: null,
+      sideA: null,
+      sideB: null,
+      sideC: null,
       area: null,
       commentary: null,
       isNewRecord: false,
@@ -80,6 +86,21 @@ export async function analyzeAndCompareSnack(data: SnackDimensionsInput): Promis
     } else if (dimensionsResult.snackType === 'vazhaikkapam' && dimensionsResult.length && dimensionsResult.length > 0 && dimensionsResult.width && dimensionsResult.width > 0) {
         // Approximate area of an ellipse
         area = Math.PI * (dimensionsResult.length / 2) * (dimensionsResult.width / 2);
+    } else if (dimensionsResult.snackType === 'samoosa' && dimensionsResult.sideA && dimensionsResult.sideB && dimensionsResult.sideC) {
+        // Area of a triangle using Heron's formula
+        const { sideA, sideB, sideC } = dimensionsResult;
+        const s = (sideA + sideB + sideC) / 2;
+        // Check if sides form a valid triangle
+        if (s > sideA && s > sideB && s > sideC) {
+            area = Math.sqrt(s * (s - sideA) * (s - sideB) * (s - sideC));
+        } else {
+            return {
+                ...errorResult,
+                ...dimensionsResult,
+                error: "Invalid samoosa dimensions. The sides do not form a valid triangle.",
+                ...getWinners(),
+            };
+        }
     }
     
     if (area === null || area <= 0) {

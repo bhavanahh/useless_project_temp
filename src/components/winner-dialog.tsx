@@ -17,19 +17,19 @@ export default function WinnerDialog({ isOpen, onOpenChange, snack }: WinnerDial
 
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-md bg-gradient-to-br from-amber-50 via-background to-amber-50">
+            <DialogContent className="max-w-md bg-gradient-to-br from-yellow-50 via-background to-pink-50">
                 <DialogHeader className="text-center items-center pt-4">
                     <div className="relative">
                         <Crown className="w-24 h-24 text-primary animate-in fade-in zoom-in-50 duration-500" />
                         <span className="absolute text-5xl font-extrabold text-white" style={{ top: '55%', left: '50%', transform: 'translate(-50%, -50%)', textShadow: '0 2px 4px rgba(0,0,0,0.3)'}}>#1</span>
                     </div>
-                    <DialogTitle className="text-4xl font-headline text-primary mt-2">New Champion!</DialogTitle>
+                    <DialogTitle className="text-4xl font-headline text-primary mt-2">Puthiya Rajavu!</DialogTitle>
                     <DialogDescription className="text-lg text-muted-foreground">
-                        Mone, ee {snack.type} theerchaayi vishesham!
+                        Mone, ee {snack.type} theerchaayi vishesham! Vere level!
                     </DialogDescription>
                 </DialogHeader>
                 <div className="my-6 flex flex-col items-center space-y-4">
-                    <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary shadow-lg">
+                    <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary shadow-lg animate-in fade-in-0 zoom-in-75 delay-200 duration-500">
                         <Image 
                             src={snack.imageData} 
                             alt={`Winning ${snack.type}`}
@@ -38,8 +38,8 @@ export default function WinnerDialog({ isOpen, onOpenChange, snack }: WinnerDial
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                     </div>
-                    <div className="text-center">
-                        <p className="text-sm text-muted-foreground">New Record Area</p>
+                    <div className="text-center animate-in fade-in-0 slide-in-from-bottom-10 delay-300 duration-500">
+                        <p className="text-sm text-muted-foreground">Puthiya Record Area</p>
                         <p className="text-5xl font-bold font-mono text-primary drop-shadow-sm">{snack.area.toFixed(1)} cm²</p>
                     </div>
                 </div>
