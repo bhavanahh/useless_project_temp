@@ -7,7 +7,7 @@ export default function Header() {
         Oru Kadi Tharatto!
       </h1>
       <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-        Ever wondered about the true surface area of your favorite fried delicacy? Let's measure the joy, one snack at a time! 😋
+        Ningade snackinte valippam ethrayanennu ariyaan oru agrahamille? Oru kadi adichu polikkaam! 😋
       </p>
     </header>
   );

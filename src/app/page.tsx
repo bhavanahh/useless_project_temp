@@ -1,16 +1,12 @@
 import Header from '@/components/header';
-import SnackCalculator from '@/components/snack-calculator';
+import SnackAnalyzer from '@/components/snack-analyzer';
 
 export default function Home() {
   return (
-    <main className="min-h-screen p-4 sm:p-8 md:p-12 font-body">
-      <div className="max-w-4xl mx-auto space-y-12">
+    <main className="min-h-screen p-4 sm:p-6 md:p-8 font-body bg-background">
+      <div className="max-w-7xl mx-auto space-y-8">
         <Header />
-        <div className="grid grid-cols-1 gap-12 items-start">
-          <div>
-            <SnackCalculator />
-          </div>
-        </div>
+        <SnackAnalyzer />
       </div>
     </main>
   );

@@ -45,8 +45,8 @@ const snackDimensionsPrompt = ai.definePrompt({
   The snack can only be one of two types: 'parippuvada' (a circular lentil fritter) or 'vazhaikkapam' (an elliptical banana fritter).
 
   Based on the image, determine the snack type.
-  - If it's a 'parippuvada', measure its diameter in centimeters. The other dimension fields should be null.
-  - If it's a 'vazhaikkapam', measure its length and width in centimeters. The diameter field should be null.
+  - If it's a 'parippuvada', measure its diameter in centimeters. The length and width fields must be null.
+  - If it's a 'vazhaikkapam', measure its length and width in centimeters. The diameter field must be null.
   - If the image does not contain either of these snacks, set the snackType to 'unknown' and all dimension fields to null.
 
   Assume a standard-sized plate or background to estimate real-world dimensions. A typical parippuvada is about 8-13 cm in diameter. A typical vazhaikkapam is 10-16 cm long and 5-9 cm wide.
@@ -62,16 +62,44 @@ const snackDimensionsFlow = ai.defineFlow(
     outputSchema: SnackDimensionsOutputSchema,
   },
   async (input) => {
-    const { output } = await snackDimensionsPrompt(input);
-    if (output === null || output === undefined) {
+    try {
+      const { output } = await snackDimensionsPrompt(input);
+      
+      if (!output) {
+        return {
+          snackType: 'unknown',
+          diameter: null,
+          length: null,
+          width: null,
+          error: 'Could not analyze image. The model returned no output.',
+        };
+      }
+
+      // Clean up the output to ensure consistency
+      if (output.snackType === 'parippuvada') {
+        output.length = null;
+        output.width = null;
+      } else if (output.snackType === 'vazhaikkapam') {
+        output.diameter = null;
+      }
+      
+      // Ensure error is null if not explicitly set to a string
+      if (output.error === 'null' || output.error === '') {
+        output.error = null;
+      }
+
+      return output;
+
+    } catch(e) {
+      console.error(e);
+      const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred during analysis.';
       return {
-        snackType: 'unknown',
-        diameter: null,
-        length: null,
-        width: null,
-        error: 'Could not analyze image.',
+          snackType: 'unknown',
+          diameter: null,
+          length: null,
+          width: null,
+          error: `Could not analyze image: ${errorMessage}`,
       };
     }
-    return output;
   }
 );
