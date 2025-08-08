@@ -1,20 +1,19 @@
 <img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
 
 
-# [Project Name] 🎯
+# Oru Kadi Tharatto
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: Autistic
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: Bhavana B - College of Engineering Perumon Kollam
+- Member : Aravind P - College of Engineering Perumon Kollam
 
 ### Project Description
-[2-3 lines about what your project does]
+
 
 ### The Problem (that doesn't exist)
 [What ridiculous problem are you solving?]
