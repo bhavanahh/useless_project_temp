@@ -79,14 +79,25 @@ const snackDimensionsFlow = ai.defineFlow(
       if (output.snackType === 'parippuvada') {
         output.length = null;
         output.width = null;
+        if (!output.diameter || output.diameter <= 0) {
+            return { snackType: 'unknown', diameter: null, length: null, width: null, error: 'The model could not determine a valid diameter for the parippuvada.' };
+        }
       } else if (output.snackType === 'vazhaikkapam') {
         output.diameter = null;
+        if (!output.length || output.length <= 0 || !output.width || output.width <= 0) {
+            return { snackType: 'unknown', diameter: null, length: null, width: null, error: 'The model could not determine valid dimensions for the vazhaikkapam.' };
+        }
+      } else {
+        return {
+            snackType: 'unknown',
+            diameter: null,
+            length: null,
+            width: null,
+            error: output.error || 'The model could not identify the snack as a parippuvada or vazhaikkapam.',
+        }
       }
       
-      // Ensure error is null if not explicitly set to a string
-      if (output.error === 'null' || output.error === '') {
-        output.error = null;
-      }
+      output.error = null;
 
       return output;
 
