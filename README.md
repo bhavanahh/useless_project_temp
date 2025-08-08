@@ -15,26 +15,43 @@
 - Member : Aravind P - College of Engineering Perumon Kollam
 
 ### Project Description
-we are planning to make a web app that could measure the size of vazhaikappam parippuvada and maybe uzhunnuvada too.Applying area of parippuvada and vazhaikkappam.We are ignoring the 'thickness' because we are snack minimalists.Somehow we will be adding samosa too..if we could integrate pythagoras theorem
+We thought about measuring the diameter of a parippuvada — because some snacks deserve scientific attention.
+Then we said, why stop there? Let’s throw in vazhakkappam too (measuring length for that one, obviously).
+It might be too useless at some points, but what if we compared two parippuvadas, sold at the same price, and proved snack injustice exists? Just like siblings comparing who got the bigger piece. 🙃
+We are building a completely unnecessary but utterly delightful web app to measure the diameter (and maybe area) of Kerala snacks like vazhakkappam, parippuvada and also samosas as a bonus.
+Thickness? Nope. We are snack minimalists.And of course, samosa will be treated with the respect it deserves — measured using Heron’s formula for maximum mathematical overkill.
+Let’s vadafy and kadify this thing 😎
 
 ### The Problem (that doesn't exist)
 
+Snack lovers across Kerala are living in uncertainty. They don’t know if their parippuvada?vazhaikappam is the same size as their friend’s.
+Snack inequality is real (probably).
+Nobody is measuring, and that’s the hole in our research — quite literally.
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+
+We solve snack injustice by:
+- Letting you upload or snap a photo of your snack.
+- Using basic image processing + geometry to measure its size.
+- Showing you a fun, dramatic verdict on whether your snack is the champion or a snack underdog.
+- Maintaining a leaderboard of the largest snacks in the session, because competition makes everything better.
+- For samosas, we measure all three sides and apply Heron’s formula because triangles deserve maths too.
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+AI
+Gemini – A powerful AI model capable of understanding and generating various forms of input, including text, code, audio, images, and video.
+Genkit – An open-source framework from Google that provides a unified API to access AI models and streamlines AI logic, tool use, image generation, and more.
+UI
+- Language:: TypeScript – Adds type safety to JavaScript for more reliable code.
+- Frameworks: Next.js – React-based web framework with client- and server-side rendering.
+- Styling: Tailwind CSS – Utility-first CSS framework for rapid, consistent UI design.
+- Libraries used:
+- Tools used:
+    Vercel – Deployment platform optimized for Next.js.
+    GitHub – Version control and collaboration.
 
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
 
 ### Implementation
 For Software:
