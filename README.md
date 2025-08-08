@@ -13,10 +13,10 @@
 - Member : Aravind P - College of Engineering Perumon Kollam
 
 ### Project Description
-
+we are planning to make a web app that could measure the size of vazhaikappam parippuvada and maybe uzhunnuvada too.Applying area of parippuvada and vazhaikkappam.We are ignoring the 'thickness' because we are snack minimalists.Somehow we will be adding samosa too..if we could integrate pythagoras theorem
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+
 
 ### The Solution (that nobody asked for)
 [How are you solving it? Keep it fun!]
