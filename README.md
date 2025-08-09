@@ -85,8 +85,13 @@ Comparison screen showing which snack is the reigning champion.
 ![Ranking](/screenshot/4th.jpeg)
 Leaderboard displaying the biggest snacks crowned as “Kadi Champions."
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
+![Workflow](/screenshot/workflow.jpg)
+## Flow Summary:
+Homepage with Input Options: Upload a snack photo or take a live picture.
+
+Snack Recognition: AI analyzes the image to identify the snack (Parippuvada, Vazhaikkappam, Samosa).
+
+Leaderboard: Ranks entries by snack category based on appeal or creativity.
 
 
 ### Project Demo
