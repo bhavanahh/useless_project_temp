@@ -88,19 +88,31 @@ Leaderboard displaying the biggest snacks crowned as “Kadi Champions."
 
 
 # Diagrams
-![Workflow](/screenshot/workflow.jpg)
+<img width="500" height="600" alt="workflow" src="/screenshot/workflow.jpg" />
+
 ## Flow Summary:
-Homepage with Input Options: Upload a snack photo or take a live picture.
-Snack Recognition: AI analyzes the image to identify the snack (Parippuvada, Vazhaikkappam, Samosa).
-Leaderboard: Ranks entries by snack category based on appeal or creativity.
+Homepage with Input Options: Upload a snack photo or take a live picture.</br>
+Snack Recognition: AI analyzes the image to identify the snack (Parippuvada, Vazhaikkappam, Samosa).</br>
+Leaderboard: Ranks entries by snack category based on appeal or creativity.</br>
 
 
 ### Project Demo
 # Video
 
 [Watch the video on Google Drive](https://drive.google.com/drive/folders/15VwtAFCaFtAEX9C5Z7-V_wpP3jCg2oKA?usp=drive_link)
+### Video Flow
 
-*Explain what the video demonstrates*
+- Show Homepage with branding and start button.
+
+- User picks Upload Photo or Use Camera.
+
+- Display user selecting or capturing snack image.
+
+- Show AI analyzing the image.
+
+- Reveal Snack identified (e.g., Parippuvada).
+
+- Display Leaderboard with top-ranked snacks.
 
 # Additional Demos
 [Add any extra demo materials/links]
@@ -108,7 +120,7 @@ Leaderboard: Ranks entries by snack category based on appeal or creativity.
 ## Team Contributions
 - Aravind P: Create idea and workflow
 - Bhavana B: Implementation
-
+<img width="500" height="600" alt="team" src="/screenshot/team.jpg" />
 ---
 Made with ❤️ at TinkerHub Useless Projects 
 
