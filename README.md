@@ -42,8 +42,8 @@ We solve snack injustice by:
 ### Technologies/Components Used
 For Software:
 AI
-Gemini – A powerful AI model capable of understanding and generating various forms of input, including text, code, audio, images, and video.
-Genkit – An open-source framework from Google that provides a unified API to access AI models and streamlines AI logic, tool use, image generation, and more.
+- Gemini – A powerful AI model capable of understanding and generating various forms of input, including text, code, audio, images, and video.
+- Genkit – An open-source framework from Google that provides a unified API to access AI models and streamlines AI logic, tool use, image generation, and more.
 UI
 - Language: TypeScript – Adds type safety to JavaScript for more reliable code.
 - Frameworks: Next.js – React-based web framework with client- and server-side rendering.
@@ -55,20 +55,20 @@ UI
 
 ### Implementation
 For Software:
-# Installation
-# Clone the repository (if not done yet)
-git clone https://github.com/bhavanahh/useless_project_temp
-cd userless_project_temp
+## Installation
+### Clone the repository (if not done yet)
+`git clone https://github.com/bhavanahh/useless_project_temp
+cd userless_project_temp`
 
-# Install dependencies
-npm install
-# or if you prefer yarn
-yarn install
+### Install dependencies
+`npm install`
+### or if you prefer yarn
+`yarn install`
 
-# Run the development server
-npm run dev
-# or
-yarn dev
+### Run the development server
+`npm run dev`
+### or
+`yarn dev`
 
 ### Project Documentation
 For Software:
