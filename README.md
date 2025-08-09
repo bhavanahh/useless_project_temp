@@ -79,18 +79,19 @@ The sacred portal — where your snack’s destiny begins. Upload your crispy fr
 
 ![after_addfile](/screenshot/2nd.jpeg)
 Snack ready for its close-up! Time for the science of deliciousness to take over.
-![which_is_Bigger](/screenshot/3rd.jpeg)
 
+![which_is_Bigger](/screenshot/3rd.jpeg)
 Comparison screen showing which snack is the reigning champion.
+
 ![Ranking](/screenshot/4th.jpeg)
 Leaderboard displaying the biggest snacks crowned as “Kadi Champions."
+
+
 # Diagrams
 ![Workflow](/screenshot/workflow.jpg)
 ## Flow Summary:
 Homepage with Input Options: Upload a snack photo or take a live picture.
-
 Snack Recognition: AI analyzes the image to identify the snack (Parippuvada, Vazhaikkappam, Samosa).
-
 Leaderboard: Ranks entries by snack category based on appeal or creativity.
 
 
