@@ -81,7 +81,7 @@ export default function SnackAnalyzer() {
         </div>
 
         <div className="lg:col-span-2 space-y-8">
-            {snackResult && !snackResult.error && snackResult.area && snackResult.snackType !== 'unknown' ? (
+            {snackResult && !snackResult.error && snackResult.perimeter && snackResult.snackType !== 'unknown' ? (
               <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 animate-in fade-in-0 zoom-in-95 duration-500">
                   <CardHeader>
                       <CardTitle className="font-headline">Kandupidutham</CardTitle>
@@ -104,14 +104,14 @@ export default function SnackAnalyzer() {
                               <p className="text-lg">Ithu oru <span className={`font-bold capitalize ${getSnackColor(snackResult.snackType)}`}>{snackResult.snackType}</span> aanu!</p>
                               
                               <div>
-                                  <p className="text-sm text-muted-foreground">Valippam (Area)</p>
-                                  <p className={`text-4xl font-bold font-mono ${getSnackColor(snackResult.snackType)}`}>{snackResult.area?.toFixed(1)} cm²</p>
+                                  <p className="text-sm text-muted-foreground">Chuttalav (Perimeter)</p>
+                                  <p className={`text-4xl font-bold font-mono ${getSnackColor(snackResult.snackType)}`}>{snackResult.perimeter?.toFixed(1)} cm</p>
                               </div>
                               
                               <div className="text-sm text-muted-foreground border-t border-border pt-3 space-y-1">
                                   {snackResult.snackType === 'parippuvada' && snackResult.diameter && snackResult.diameter > 0 && (
                                       <div>
-                                          <p>Chuttalav: <span className="font-mono font-medium text-foreground">{(Math.PI * snackResult.diameter).toFixed(1)} cm</span></p>
+                                          <p>Diameter: <span className="font-mono font-medium text-foreground">{snackResult.diameter.toFixed(1)} cm</span></p>
                                       </div>
                                   )}
                                   {snackResult.snackType === 'vazhaikkapam' && snackResult.length && snackResult.length > 0 && snackResult.width && snackResult.width > 0 && (

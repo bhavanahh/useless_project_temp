@@ -16,12 +16,12 @@ const sessionSnacks: Snack[] = [];
 export interface Snack {
   id: string;
   type: 'parippuvada' | 'vazhaikkapam' | 'samoosa';
-  area: number;
+  perimeter: number;
   imageData: string;
 }
 
 export type SnackAnalysisResult = (SnackDimensionsOutput & { 
-    area: number | null; 
+    perimeter: number | null; 
     commentary: string | null; 
     isNewRecord: boolean; 
     latestSnack: Snack | null; 
@@ -36,7 +36,7 @@ function getLargestSnack(type: 'parippuvada' | 'vazhaikkapam' | 'samoosa'): Snac
     if (snacksOfType.length === 0) {
         return null;
     }
-    return snacksOfType.reduce((prev, current) => (prev.area > current.area) ? prev : current);
+    return snacksOfType.reduce((prev, current) => (prev.perimeter > current.perimeter) ? prev : current);
 }
 
 export async function analyzeAndCompareSnack(data: SnackDimensionsInput): Promise<SnackAnalysisResult> {
@@ -57,7 +57,7 @@ export async function analyzeAndCompareSnack(data: SnackDimensionsInput): Promis
       sideA: null,
       sideB: null,
       sideC: null,
-      area: null,
+      perimeter: null,
       commentary: null,
       isNewRecord: false,
       latestSnack: null,
@@ -66,6 +66,7 @@ export async function analyzeAndCompareSnack(data: SnackDimensionsInput): Promis
   };
 
   if (!parsedData.success) {
+    console.error("Invalid input provided:", parsedData.error);
     return errorResult;
   }
   
@@ -73,28 +74,31 @@ export async function analyzeAndCompareSnack(data: SnackDimensionsInput): Promis
     const dimensionsResult = await getSnackDimensions(parsedData.data);
 
     if (dimensionsResult.error || !dimensionsResult.snackType || dimensionsResult.snackType === 'unknown') {
-      return {
-        ...errorResult,
-        error: dimensionsResult.error || 'Aalae patttikunno? he?',
-        ...getWinners(),
-      };
+        console.error("Error from getSnackDimensions:", dimensionsResult.error);
+        return {
+            ...errorResult,
+            error: dimensionsResult.error || 'Aalae pattikunno? he?',
+            ...getWinners(),
+        };
     }
     
-    let area: number | null = null;
+    let perimeter: number | null = null;
     if (dimensionsResult.snackType === 'parippuvada' && dimensionsResult.diameter && dimensionsResult.diameter > 0) {
-        area = Math.PI * (dimensionsResult.diameter / 2) ** 2;
+        perimeter = Math.PI * dimensionsResult.diameter;
     } else if (dimensionsResult.snackType === 'vazhaikkapam' && dimensionsResult.length && dimensionsResult.length > 0 && dimensionsResult.width && dimensionsResult.width > 0) {
-        // Approximate area of an ellipse
-        area = Math.PI * (dimensionsResult.length / 2) * (dimensionsResult.width / 2);
+        // Ramanujan's approximation for ellipse perimeter
+        const a = dimensionsResult.length / 2;
+        const b = dimensionsResult.width / 2;
+        perimeter = Math.PI * (3 * (a + b) - Math.sqrt((3 * a + b) * (a + 3 * b)));
     } else if (dimensionsResult.snackType === 'samoosa' && dimensionsResult.sideA && dimensionsResult.sideB && dimensionsResult.sideC) {
-        // Area of a triangle using Heron's formula
         const { sideA, sideB, sideC } = dimensionsResult;
-        const s = (sideA + sideB + sideC) / 2;
+        console.log(`Samoosa sides received: A=${sideA}, B=${sideB}, C=${sideC}`);
         // Check if sides form a valid triangle
-        if (s > sideA && s > sideB && s > sideC) {
-            area = Math.sqrt(s * (s - sideA) * (s - sideB) * (s - sideC));
+        if (sideA + sideB > sideC && sideA + sideC > sideB && sideB + sideC > sideA) {
+            perimeter = sideA + sideB + sideC;
         } else {
-            return {
+             console.error("Invalid samoosa dimensions. The sides do not form a valid triangle.");
+             return {
                 ...errorResult,
                 ...dimensionsResult,
                 error: "Invalid samoosa dimensions. The sides do not form a valid triangle.",
@@ -103,22 +107,23 @@ export async function analyzeAndCompareSnack(data: SnackDimensionsInput): Promis
         }
     }
     
-    if (area === null || area <= 0) {
+    if (perimeter === null || perimeter <= 0) {
+        console.error("Could not calculate perimeter due to missing or invalid dimensions.");
         return {
             ...errorResult,
             ...dimensionsResult,
-            error: "Could not calculate area due to missing or invalid dimensions.",
+            error: "Could not calculate perimeter due to missing or invalid dimensions.",
             ...getWinners(),
         }
     }
 
     const largestSnackBefore = getLargestSnack(dimensionsResult.snackType);
-    const isNewRecord = !largestSnackBefore || area > largestSnackBefore.area;
+    const isNewRecord = !largestSnackBefore || perimeter > largestSnackBefore.perimeter;
 
     const commentaryInput: SnackCommentaryInput = {
       snackType: dimensionsResult.snackType,
-      newSnackArea: area,
-      largestSnackArea: largestSnackBefore?.area ?? 0,
+      newSnackPerimeter: perimeter,
+      largestSnackPerimeter: largestSnackBefore?.perimeter ?? 0,
     };
 
     const commentaryResult = await getSnackCommentary(commentaryInput);
@@ -126,14 +131,14 @@ export async function analyzeAndCompareSnack(data: SnackDimensionsInput): Promis
     const newSnack: Snack = {
         id: new Date().toISOString(),
         type: dimensionsResult.snackType,
-        area,
+        perimeter,
         imageData: parsedData.data.imageData,
     }
     sessionSnacks.push(newSnack);
 
     return {
       ...dimensionsResult,
-      area,
+      perimeter,
       commentary: commentaryResult.comment,
       isNewRecord,
       latestSnack: newSnack,

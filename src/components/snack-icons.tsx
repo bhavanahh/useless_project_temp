@@ -45,8 +45,8 @@ export function SamoosaIcon(props: SVGProps<SVGSVGElement>) {
             fill="currentColor"
             {...props}
         >
-            <path d="M2.35,21.65,21.65,2.35,12,21.65Z" opacity="0.8" />
-            <path d="M4.5,19.5,19.5,4.5,12,19.5Z" opacity="0.4" />
+            <path d="M2.35,21.65 21.65,2.35 12,21.65Z" opacity="0.8" />
+            <path d="M4.5,19.5 19.5,4.5 12,19.5Z" opacity="0.4" />
         </svg>
     );
 }

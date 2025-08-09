@@ -57,7 +57,7 @@ function WinnerDisplay({ snack, type }: { snack: Snack | null, type: 'parippuvad
                     {renderIcon("h-5 w-5")}
                     {snack.type}
                 </p>
-                <p className="text-2xl font-bold font-mono text-primary drop-shadow-sm">{snack.area.toFixed(1)} cm²</p>
+                <p className="text-2xl font-bold font-mono text-primary drop-shadow-sm">{snack.perimeter.toFixed(1)} cm</p>
             </div>
         </div>
     )

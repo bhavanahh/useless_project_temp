@@ -39,8 +39,8 @@ export default function WinnerDialog({ isOpen, onOpenChange, snack }: WinnerDial
                         />
                     </div>
                     <div className="text-center animate-in fade-in-0 slide-in-from-bottom-10 delay-300 duration-500">
-                        <p className="text-sm text-muted-foreground">Puthiya Record Area</p>
-                        <p className="text-5xl font-bold font-mono text-primary drop-shadow-sm">{snack.area.toFixed(1)} cm²</p>
+                        <p className="text-sm text-muted-foreground">Puthiya Record Chuttalav</p>
+                        <p className="text-5xl font-bold font-mono text-primary drop-shadow-sm">{snack.perimeter.toFixed(1)} cm</p>
                     </div>
                 </div>
                 <div className="flex justify-center pb-4">

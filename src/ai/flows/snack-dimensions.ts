@@ -62,7 +62,7 @@ Based on the image, determine the snack type.
 - If it's a 'samoosa', measure the length of its three sides (sideA, sideB, sideC) in centimeters. The diameter, length, width, and inclination fields must be null.
 - If the image does not contain any of these snacks, set the snackType to 'unknown' and all dimension fields to null.
 
-Assume a standard-sized plate or background to estimate real-world dimensions. A typical parippuvada is about 8-13 cm in diameter. A typical vazhaikkapam is 10-16 cm long. A typical samoosa has sides between 6-8 cm.
+Assume a standard-sized plate or background to estimate real-world dimensions. A typical parippuvada is about 5-8 cm in diameter. A typical vazhaikkapam is 10-16 cm long. A typical samoosa has sides between 6-8 cm.
 
 Image of the snack: {{media url=imageData}}`,
 });
