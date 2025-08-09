@@ -34,3 +34,19 @@ export function VazhaikkapamIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+// Representation of a Samoosa (triangular pastry)
+export function SamoosaIcon(props: SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            {...props}
+        >
+            <path d="M2.35,21.65 21.65,2.35 12,21.65Z" opacity="0.8" />
+            <path d="M4.5,19.5 19.5,4.5 12,19.5Z" opacity="0.4" />
+        </svg>
+    );
+}

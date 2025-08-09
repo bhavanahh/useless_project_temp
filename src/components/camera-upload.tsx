@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useRef, useState, useEffect, useTransition } from 'react';
@@ -5,23 +6,22 @@ import { Button } from './ui/button';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 import { useToast } from '@/hooks/use-toast';
 import { Camera, Loader2, FileUp, Copy } from 'lucide-react';
-import { getDimensionsFromImage } from '@/app/actions';
-import { Card, CardContent } from './ui/card';
-import type { SnackDimensionsOutput } from '@/ai/flows/snack-dimensions';
-
+import { analyzeAndCompareSnack } from '@/app/actions';
+import type { SnackAnalysisResult } from '@/app/actions';
+import Image from 'next/image';
 
 interface CameraUploadProps {
-    onDimensionsCalculated: (dimensions: SnackDimensionsOutput) => void;
+    onAnalysisComplete: (result: SnackAnalysisResult) => void;
 }
 
-export default function CameraUpload({ onDimensionsCalculated }: CameraUploadProps) {
+export default function CameraUpload({ onAnalysisComplete }: CameraUploadProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
-  const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [isProcessing, startProcessing] = useTransition();
   const [analysisError, setAnalysisError] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -42,8 +42,8 @@ export default function CameraUpload({ onDimensionsCalculated }: CameraUploadPro
         setHasCameraPermission(false);
         toast({
           variant: 'destructive',
-          title: 'Camera Access Denied',
-          description: 'Please enable camera permissions in your browser settings to use this feature.',
+          title: 'Camera Kondu Varane!',
+          description: 'Mone, camera on aakiye... Appo alle photo edukkaan pattu.',
         });
       }
     };
@@ -68,8 +68,8 @@ export default function CameraUpload({ onDimensionsCalculated }: CameraUploadPro
       if (context) {
         context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
         const dataUrl = canvas.toDataURL('image/jpeg');
-        setCapturedImage(dataUrl);
         setAnalysisError(null);
+        setImagePreview(dataUrl);
         handleAnalyze(dataUrl);
       }
     }
@@ -80,21 +80,20 @@ export default function CameraUpload({ onDimensionsCalculated }: CameraUploadPro
 
     startProcessing(async () => {
       setAnalysisError(null);
-      console.log("Received image for analysis, length:", imageData.length);
-
-      const result = await getDimensionsFromImage({ imageData });
-      console.log("Analysis result:", result);
       
-      if (result.error || result.snackType === 'unknown') {
-        const errorMessage = result.error || "Ee snack manassilayilla. Vere onnu tharumo?";
+      const result = await analyzeAndCompareSnack({ imageData });
+      
+      if (result.error) {
+        const errorMessage = result.error ?? "Ee snack manassilayilla. Vere onnu tharumo?";
         setAnalysisError(errorMessage);
+        setImagePreview(null);
       } else {
-        onDimensionsCalculated(result);
+        onAnalysisComplete(result);
+        setImagePreview(null);
         toast({
-          title: `Ithu ${result.snackType} aanu!`,
+          title: `Kandupiche! Ithu ${result.snackType} aanu!`,
           description: "Alavukal update cheythittundu.",
         });
-        setCapturedImage(null);
       }
     });
   };
@@ -105,20 +104,26 @@ export default function CameraUpload({ onDimensionsCalculated }: CameraUploadPro
       const reader = new FileReader();
       reader.onload = (e) => {
         const imageData = e.target?.result as string;
-        setCapturedImage(imageData);
         setAnalysisError(null);
+        setImagePreview(imageData);
         handleAnalyze(imageData);
       };
       reader.readAsDataURL(file);
     }
   };
+  
+  const handleUploadClick = () => {
+    setImagePreview(null);
+    setAnalysisError(null);
+    fileInputRef.current?.click();
+  }
 
   const copyToClipboard = () => {
     if (analysisError) {
         navigator.clipboard.writeText(analysisError).then(() => {
             toast({
-                title: "Copied!",
-                description: "Error message copied to clipboard.",
+                title: "Copy cheythu!",
+                description: "Thettu copy cheythittundu, mone.",
             });
         });
     }
@@ -126,21 +131,27 @@ export default function CameraUpload({ onDimensionsCalculated }: CameraUploadPro
 
   return (
     <div className="space-y-4">
-        <div className="relative w-full overflow-hidden rounded-lg border bg-muted flex justify-center items-center">
+        <div className="relative w-full overflow-hidden rounded-lg border bg-muted flex justify-center items-center aspect-video">
             {isProcessing && (
-                 <div className="absolute inset-0 flex items-center justify-center bg-muted/80 z-10">
+                 <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-20">
                     <div className="text-center p-4 bg-background/80 rounded-lg shadow-lg">
                         <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto" />
-                        <p className="mt-2 text-muted-foreground">Analyzing snack...</p>
+                        <p className="mt-2 text-muted-foreground">Kadi alakkunnu...</p>
                     </div>
                 </div>
             )}
             
-            {capturedImage && !isProcessing ? (
-                <img src={capturedImage} alt="Captured snack" className="w-auto h-auto max-h-[400px] max-w-full rounded-lg object-contain" />
-            ) : (
-                <video ref={videoRef} className="w-full h-auto object-cover rounded-lg" autoPlay muted playsInline />
+            {imagePreview && !isProcessing && (
+                 <Image
+                    src={imagePreview}
+                    alt="Snack preview"
+                    fill
+                    objectFit="contain"
+                    className="z-10"
+                />
             )}
+
+            <video ref={videoRef} className="w-full h-auto object-cover rounded-lg" autoPlay muted playsInline />
             <canvas ref={canvasRef} className="hidden" />
 
             {hasCameraPermission === null && (
@@ -152,9 +163,9 @@ export default function CameraUpload({ onDimensionsCalculated }: CameraUploadPro
 
         {hasCameraPermission === false && (
             <Alert variant="default">
-                <AlertTitle>Camera Not Available</AlertTitle>
+                <AlertTitle>Camera Illa!</AlertTitle>
                 <AlertDescription>
-                    You can still upload a file to analyze a snack.
+                    Camera illel entha, file upload cheythu snack alakkamallo.
                 </AlertDescription>
             </Alert>
         )}
@@ -163,7 +174,7 @@ export default function CameraUpload({ onDimensionsCalculated }: CameraUploadPro
              <Alert variant="destructive">
                 <div className="flex justify-between items-start">
                     <div>
-                        <AlertTitle>Analysis Failed</AlertTitle>
+                        <AlertTitle>Ayyo, Pani Kitti!</AlertTitle>
                         <AlertDescription>
                             {analysisError}
                         </AlertDescription>
@@ -177,10 +188,10 @@ export default function CameraUpload({ onDimensionsCalculated }: CameraUploadPro
 
         <div className="grid grid-cols-2 gap-4">
             <Button onClick={captureImage} className="w-full" disabled={hasCameraPermission !== true || isProcessing}>
-                <Camera className="mr-2" /> Capture
+                <Camera className="mr-2" /> Oru Photo Pidi
             </Button>
-            <Button onClick={() => fileInputRef.current?.click()} variant="outline" disabled={isProcessing}>
-                <FileUp className="mr-2" /> Upload File
+            <Button onClick={handleUploadClick} variant="outline" disabled={isProcessing}>
+                <FileUp className="mr-2" /> File Thappu
             </Button>
             <input type="file" ref={fileInputRef} id="file-upload" accept="image/*" className="hidden" onChange={handleFileUpload} />
         </div>
