@@ -88,8 +88,8 @@ Leaderboard displaying the biggest snacks crowned as “Kadi Champions."
 
 
 # Diagrams
-<img width="500" height="600" alt="workflow" src="/screenshot/workflow.jpg" />
-
+<img width="500" height="500" alt="workflow" src="/screenshot/workflow.jpg" />
+<img width="500" height="500" alt="workflow" src="/screenshot/kadi.jpg" />
 ## Flow Summary:
 Homepage with Input Options: Upload a snack photo or take a live picture.</br>
 Snack Recognition: AI analyzes the image to identify the snack (Parippuvada, Vazhaikkappam, Samosa).</br>
