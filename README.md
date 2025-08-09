@@ -96,7 +96,7 @@ Leaderboard: Ranks entries by snack category based on appeal or creativity.
 
 ### Project Demo
 # Video
-[Add your demo video link here]
+![video](/screenshot/ScreenRecording.mp4)
 *Explain what the video demonstrates*
 
 # Additional Demos
