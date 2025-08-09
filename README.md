@@ -15,84 +15,114 @@
 - Member : Aravind P - College of Engineering Perumon Kollam
 
 ### Project Description
-we are planning to make a web app that could measure the size of vazhaikappam parippuvada and maybe uzhunnuvada too.Applying area of parippuvada and vazhaikkappam.We are ignoring the 'thickness' because we are snack minimalists.Somehow we will be adding samosa too..if we could integrate pythagoras theorem
+We thought about measuring the diameter of a parippuvada — because some snacks deserve scientific attention.
+Then we said, why stop there? Let’s throw in vazhakkappam too (measuring length for that one, obviously).
+It might be too useless at some points, but what if we compared two parippuvadas, sold at the same price, and proved snack injustice exists? Just like siblings comparing who got the bigger piece. 🙃
+We are building a completely unnecessary but utterly delightful web app to measure the perimeter of Kerala snacks like vazhakkappam, parippuvada and also samoosas as a bonus.
+Thickness? Nope. We are snack minimalists.
+Let’s vadafy and kadify this thing 😎
 
 ### The Problem (that doesn't exist)
 
+Snack lovers across Kerala are living in uncertainty. They don’t know if their parippuvada?vazhaikappam is the same size as their friend’s.
+Snack inequality is real (probably).
+Nobody is measuring, and that’s the hole in our research — quite literally.
+And we being natives of "KOLLAM" we do deserve an explanation for injustice in this problem.
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+
+We solve snack injustice by:
+- Letting you upload or snap a photo of your snack.
+- Using basic image processing + geometry to measure its size.
+- Showing you a fun, dramatic verdict on whether your snack is the champion or a snack underdog.
+- Maintaining a leaderboard of the largest snacks in the session, because competition makes everything better.
+
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
-
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+AI
+- Gemini – A powerful AI model capable of understanding and generating various forms of input, including text, code, audio, images, and video.
+- Genkit – An open-source framework from Google that provides a unified API to access AI models and streamlines AI logic, tool use, image generation, and more.
+UI
+- Language: TypeScript – Adds type safety to JavaScript for more reliable code.
+- Frameworks: Next.js – React-based web framework with client- and server-side rendering.
+- Styling: Tailwind CSS – Utility-first CSS framework for rapid, consistent UI design.
+- Libraries used:
+- Tools used:
+    Vercel – Deployment platform optimized for Next.js.
+    GitHub – Version control and collaboration.
 
 ### Implementation
 For Software:
-# Installation
-[commands]
+## Installation
+### Clone the repository (if not done yet)
+`git clone https://github.com/bhavanahh/useless_project_temp
+cd userless_project_temp`
 
-# Run
-[commands]
+### Install dependencies
+`npm install`
+### or if you prefer yarn
+`yarn install`
+
+### Run the development server
+`npm run dev`
+### or
+`yarn dev`
 
 ### Project Documentation
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+![homepage](/screenshot/1st.jpeg)
+The sacred portal — where your snack’s destiny begins. Upload your crispy friend here!
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+![after_addfile](/screenshot/2nd.jpeg)
+Snack ready for its close-up! Time for the science of deliciousness to take over.
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![which_is_Bigger](/screenshot/3rd.jpeg)
+Comparison screen showing which snack is the reigning champion.
+
+![Ranking](/screenshot/4th.jpeg)
+Leaderboard displaying the biggest snacks crowned as “Kadi Champions."
+
 
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
+<div>
+<img width="398.5" height="500" alt="workflow" src="/screenshot/workflow.jpg" />
+<img width="398.5" height="500" alt="workflow" src="/screenshot/kadi.jpg" />
+</div>
+## Flow Summary:
+Homepage with Input Options: Upload a snack photo or take a live picture.</br>
+Snack Recognition: AI analyzes the image to identify the snack (Parippuvada, Vazhaikkappam, Samosa).</br>
+Leaderboard: Ranks entries by snack category based on appeal or creativity.</br>
 
-For Hardware:
-
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
-# Build Photos
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
 
 ### Project Demo
 # Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
+
+[Watch the video on Google Drive](https://drive.google.com/drive/folders/15VwtAFCaFtAEX9C5Z7-V_wpP3jCg2oKA?usp=drive_link)
+### Video Flow
+
+- Show Homepage with branding and start button.
+
+- User picks Upload Photo or Use Camera.
+
+- Display user selecting or capturing snack image.
+
+- Show AI analyzing the image.
+
+- Reveal Snack identified (e.g., Parippuvada).
+
+- Display Leaderboard with top-ranked snacks.
 
 # Additional Demos
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
-
+- Aravind P: Create idea and workflow
+- Bhavana B: Implementation
+<img width="500" height="600" alt="team" src="/screenshot/team.jpg" />
 ---
 Made with ❤️ at TinkerHub Useless Projects 
 
